@@ -1,0 +1,83 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+{% for g_info in guild %}
+Categories for {{guild[g_info]['name']}}: {{session['user']['username'] }}
+{% endfor %}
+{% endblock %}
+
+{% block app_content %}
+{% for g_info in guild %}
+<div class="container-fluid">
+        <div class="row">
+            <h2>
+                {{guild[g_info]['name']}} <img
+                src="{{guild[g_info]['icon']}}" width="64px" class="img-circle" />
+            </h2>  
+        </div>
+        <div>
+            <table class="table discord-dark-col">
+                <thead>
+                    <tr>
+                        <!-- <th scope="col">ID</th> -->
+                        <th scope="col">Name</th>
+                        <th scope="col">Enabled</th>
+                        <th scope="col">Prefix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for cat in db_categories %}
+                    <tr>
+                        <!-- <th scope="row">{{cat}}</th> -->
+                        <td>{{discord_categories[cat|string]['name']}}</td>
+                        <td><input class="categoryEnable" type="checkbox" name="{{cat}}" id="{{cat}}" {{ 'checked' if
+                        db_categories[cat]['enabled'] else '' }} data-toggle="toggle"  ></td>
+                        <td>AC!</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script>
+    $(document).ready(function() {
+        $('.toggle').click(function() {
+            var current_status = $('.status').text();
+            if (current_status === 'Untoggled'){
+                $('.status').html('Toggled');
+            }
+            else{
+                $('.status').html('Untoggled');
+            }
+
+        });
+    });
+</script>
+
+<script>
+$('.categoryEnable').on("change", function() {
+    // alert($(this).attr("id"))
+    var urlBackgroundProcess = "{{ url_for('mod_api.update_enabled_cats') }}";
+    var id = $(this).attr('id')
+    var enabled = $(this).prop('checked')
+    var list = new FormData()
+    list.append("channel_id", id)
+    list.append("enabled", enabled)
+    $.ajax({
+                    type: "POST",
+                    url: urlBackgroundProcess,
+                    data: list,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+    });
+})
+
+    </script>
+{% endblock %}

@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-md navbar-light">
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <!-- <div class="navbar-nav">
+            <a href="#" class="nav-item nav-link active">Home</a>
+            <a href="#" class="nav-item nav-link">Profile</a>
+            <a href="#" class="nav-item nav-link">Messages</a>
+            <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a>
+        </div> -->
+{% if title %}{{ title }} - AutoChannel{% else %}AutoChannel Bot{% endif %}
+        <div class="navbar-nav ml-auto">
+<!-- {% if session['user'] is defined %}
+            <div class="dropdown">
+                <button type="button" class="btn btn-primary" data-toggle="dropdown">
+                   {{session['user']['username']}}
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/dashboard">Servers</a>
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                </div>
+            </div>
+{% else %}
+            <a href="/login" class="nav-item nav-link"> Login </a>
+{% endif %} -->
+        </div>
+    </div>
+</nav>

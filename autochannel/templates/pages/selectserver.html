@@ -1,0 +1,25 @@
+
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        {{  guilds }}
+                        {{ user_id }}
+                        {% for server in guilds %}
+                        {{ server }}
+                    <div class="row row-centered animated bounceInUp">
+						<div class="col-md-1 col-xs-3 text-center col-centered" style="font-size:13px; color:#FFF;">
+                            <a href="{{url_for('dashboard_guild', user_id=user_id,guild_id=guilds[server]['id'])}}" style="color:#FFF">
+								<img {% if guilds[server]['icon'] %}src="https://cdn.discordapp.com/icons/{{guilds[server]['id']}}/{{guilds[server]['icon']}}.jpg"{%endif%} {% if not guilds[server]['icon'] %}avatar="{{server}}" {%endif%}  style="width:100%; border:2px #FFF solid;" class="img-circle" data-toggle="tooltip" title="{{server}}" data-placement="bottom" ></a>
+						</div>
+					{% else %}
+							<h3>... It looks like you don't have any servers!</h3>
+							<h3>Go create one ! <br/>I'm waiting for you ;) </h3>
+					{% endfor %} 
+
+                    </div>
+                    </div>
+                </div>
+            </div>
+                        
+
+

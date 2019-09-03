@@ -1,0 +1,121 @@
+<div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar" class="active">
+            <div class="sidebar-header">
+                <button type="button" id="sidebarCollapse" class="navbar-btn
+                button-sb active float-right">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <!-- <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button> -->
+                <h3>AutoChannel</h3>
+                <strong>AC</strong>
+            </div>
+ 
+            
+{% if session['user'] is defined %}
+            <!-- <div class="dropdown">
+                <button type="button" class="btn btn-primary" data-toggle="dropdown">
+                   {{session['user']['username']}}
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/dashboard">Servers</a>
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                </div>
+            </div> -->
+
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-user"></i>
+                        <h6 class="expanded-text">{{session['user']['username']}}</h6>
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="/dashboard">Severs</a>
+                        </li>
+                        <li>
+                            <a href="/logout">Logout</a>
+                        </li>
+{% else %}
+                        <a href="/login" class="nav-item nav-link"> 
+                            <i class="fas fa-user"></i>
+                            <h6 class="expanded-text">Login</h6>
+                        </a>
+{% endif %}
+                    </ul>
+                </li>
+{% if session['guilds'] is defined %}
+{% for guild in session['guilds'] %}
+                <li style="" class="select-server-hover animated bounceInUp">
+                    <a class="select-server-hover" style="display: inline" href="/dashboard/{{session['api_token']['user_id']}}/{{session['guilds'][guild]['id']}}">
+                        <img style="display:inline" width="32px" class="img-circle"
+                        src="{{session['guilds'][guild]['icon']}}" /> 
+                    </a>
+                        <h6 class="expanded-text">{{session['guilds'][guild]['name']}}</h6>
+                </li>
+{% endfor %}
+{% endif %}
+ 
+            </ul>
+    
+        </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="wrapper">
+
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Auto Channel</h3>
+            <strong>AC</strong>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li class="active">
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <li>
+                        <a href="#">Home 1</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-briefcase"></i>
+                    About
+                </a>
+            </li>
+            <li>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-copy"></i>
+                    Pages
+                </a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li>
+                        <a href="#">Page 1</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </nav> -->
