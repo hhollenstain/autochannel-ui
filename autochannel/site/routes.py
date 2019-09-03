@@ -52,54 +52,49 @@ def dashboard_index():
     return redirect(url_for('mod_api.login')) 
 
 @login_required
-@mod_site.route('/dashboard/add-guild')
-def add_guild():
+@mod_site.route('/guild-added/<user_id>/<guild_id>')
+def add_guild(user_id=None, guild_id=None):
     """[summary]
     
     Returns:
         [type] -- [description]
     """
-    guild_id = request.args.get('guild_id')
-    categories = api_functions.get_guild_categories(guild_id)
     guild = api_functions.get_guild(guild_id)
     guild_data = discordData.parse_managed_guilds(guild)
-    guild_id_add = Guild(id=guild_id)
-    db.session.add(guild_id_add)
-    db.session.commit()
-    LOG.info(f'GUILD ID: {guild_id}')
-    return "worked?"
+    return render_template('pages/guild-add.html', guild=guild_data, user_id=user_id)
 
 
 @mod_site.route('/dashboard/<user_id>')
 @login_required
 def dashboard(user_id):
-   #return f'USER ID: {user_id}'
-   #guilds = user_id
+    """[summary]
+    
+    Arguments:
+        user_id {[type]} -- [description]
+    
+    Returns:
+        [type] -- [description]
+    """
     guilds = api_functions.get_managed_guilds()
-#    return render_template('layouts/default.html',
-#                             content=render_template(
-#                             'pages/selectserver.html', guilds=guilds,
-#                             user_id=user_id))
-    return render_template('pages/selectserver-boot.html', guilds=guilds, user_id=user_id)
-
-@mod_site.route('/dashboard/<user_id>/<guild_id>/form', methods=['GET', 'POST'])
-@login_required
-@guild_check
-def dashboard_guild_form(user_id=None, guild_id=None):
-    guild = Guild.query.get_or_404(guild_id)
-    cat = Category.query.filter_by(guild_id=guild_id).all()
-    form = data_forms.GuildForm(request.form, obj=guild)
-    form.populate_obj(guild)
-    LOG.info(cat)
-    LOG.info(guild)
-    LOG.info(form.categories)
-
-    return render_template('pages/guild-form.html', form=form, user_id=user_id, guild_id=guild_id)
+    title = f"Guilds managed by {session['user']['username']}"
+    return render_template(
+            'pages/selectserver-boot.html', title=title,
+            guilds=guilds, user_id=user_id
+        )
 
 @mod_site.route('/dashboard/<user_id>/<guild_id>/db')
 @login_required
 @guild_check
 def dashboard_guild_db(user_id=None, guild_id=None):
+    """[summary]
+    
+    Keyword Arguments:
+        user_id {[type]} -- [description] (default: {None})
+        guild_id {[type]} -- [description] (default: {None})
+    
+    Returns:
+        [type] -- [description]
+    """
     guild = Guild.query.filter_by(id = guild_id).first()
     guild_data = guild.get_categories()
     return render_template('pages/guild-db.html', guild=guild_data)
@@ -123,57 +118,16 @@ def dashboard_guild(user_id=None, guild_id=None):
     db_categories = Guild.query.get(guild_id).get_categories()
     guild = api_functions.get_guild(guild_id)
     guild_data = discordData.parse_managed_guilds(guild)
+    title = "Guild Categories"
     
     if discord_categories:
-        return render_template('pages/guild-categories.html', db_categories=db_categories, discord_categories=discord_categories, guild=guild_data)
+        return render_template(
+                'pages/guild-categories.html', title=title, 
+                db_categories=db_categories, discord_categories=discord_categories, 
+                guild=guild_data
+            )
 
     return jsonify(error='BOT Not added to this guild or no')
-
-@mod_site.route('/ohno')
-def ohno():
-    """[summary]
-    
-    Returns:
-        [type] -- [description]
-    """
-    #return jsonify(error="something went wrong")
-    return render_template('pages/ohno.html')
-
-@mod_site.route('/callback')
-def callback():
-    """[summary]
-    
-    Returns:
-        [type] -- [description]
-    """
-    if request.values.get('error'):
-        return request.values['error']
-    discord = make_session(state=session.get('oauth2_state'))
-    discord_token = discord.fetch_token(
-        app.TOKEN_URL,
-        client_secret=app.OAUTH2_CLIENT_SECRET,
-        authorization_response=request.url)
-    if not discord_token:
-        return redirect(url_for('ohno'))
-
-    session['oauth2_token'] = discord_token
-
-# Fetch the user
-    user = api_functions.get_user(discord_token)
-    # if not user:
-    #     return redirect(url_for('logout'))
-    # Generate api_key from user_id
-    serializer = JSONWebSignatureSerializer(app.config['SECRET_KEY'])
-    api_key = str(serializer.dumps({'user_id': user['id']}))
-    # Store api_token in client session
-    api_token = {
-        'api_key': api_key,
-        'user_id': user['id']
-    }
-    session.permanent = True
-    session['api_token'] = api_token
-    #return redirect(url_for('.me'))
-    return redirect(url_for('dashboard', user_id=session['api_token']['user_id']))
 
 @mod_site.route('/me')
 @login_required

@@ -13,6 +13,10 @@ def main():
     coloredlogs.install(level=0,
                         fmt="[%(asctime)s][%(levelname)s] [%(name)s.%(funcName)s:%(lineno)d] %(message)s",
                         isatty=True)
+
+
+    app = create_app()
+
     if args.debug:
         l_level = logging.DEBUG
         app.debug = True
@@ -22,11 +26,11 @@ def main():
     logging.getLogger(__package__).setLevel(l_level)
     logging.getLogger('websockets.protocol').setLevel(l_level)
     logging.getLogger('urllib3').setLevel(l_level)
-    app = create_app()
+   
 
     if 'http://' in app.config['OAUTH2_REDIRECT_URI']:
         os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = 'true'
-    app.run()
+    app.run(threaded=True)
     #serve(app, listen='0.0.0.0:5000')
 
 # if __name__ == "__main__":

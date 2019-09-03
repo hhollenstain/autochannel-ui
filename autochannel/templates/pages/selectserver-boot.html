@@ -5,26 +5,24 @@ Managed servers for {{session['user']['username'] }}
 {% endblock %}
 
 {% block app_content %}
-<div class="container-fluid">
-        <div class="row">
-        {% for server in guilds %}
-        <div class="row row-centered animated bounceInUp">
-            <div class="text-center col-centered" style="font-size:13px; color:#FFF;">
-                <a href="{{url_for('mod_site.dashboard_guild', user_id=user_id,guild_id=guilds[server]['id'])}}" style="color:#FFF">
-                    <img {% if guilds[server]['icon'] %}
-                    src="{{guilds[server]['icon']}}"{%endif%}
-                    {% if not guilds[server]['icon'] %}avatar="{{server}}"
-                    {%endif%}  style="width:128px; border:2px #FFF solid;"
-                    class="img-circle inline-block select-server" data-toggle="tooltip" title="{{server}}"
-                    data-placement="bottom" / >
-                </a>
-            </div>
-        {% else %}
-                <h3>... It looks like you don't have any servers!</h3>
-                <h3>Go create one ! <br/>I'm waiting for you ;) </h3>
-        {% endfor %} 
+<div class="container-fluid h-100">
+    <div class="row align-items-center h-100">
+            <div class="d-flex justify-content-center col-md-12 mx-auto" style="border-bottom:2px solid #6d7fcc"  >
+                <div>
+                    <h3 class="d-inline">{{ session['user']['username'] }}: Guilds</h3> 
+                </div>
+            </div>  
+    </div>
+    <div class="row align-items-center h-100">
+        <div class="col-md-6 mx-auto animated bounceInUp">
 
-        </div>
+{% for server in guilds %}
+            <a class="d-inline" href="{{url_for('mod_site.dashboard_guild', user_id=user_id,guild_id=guilds[server]['id'])}}" style="color:#FFF">
+                <img src="{{guilds[server]['icon']}}" style="width:128px; border:2px #FFF solid;"
+                class="my-3 d-inline img-circle select-server" data-toggle="tooltip" title="{{server}}" / >
+            </a>
+{% endfor %} 
         </div>
     </div>
+</div>
 {% endblock %}

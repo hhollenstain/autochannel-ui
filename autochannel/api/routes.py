@@ -14,10 +14,31 @@ from autochannel.lib import discordData
 from autochannel.api import api_functions
 """Data Imports"""
 from autochannel.data import data_functions
+from autochannel.models import Guild, Category
+from autochannel import db
 
 LOG = logging.getLogger(__name__)
 
 mod_api = Blueprint('mod_api', __name__)
+
+
+@login_required
+@mod_api.route('/add-guild')
+def add_guild():
+    """[summary]
+    
+    Returns:
+        [type] -- [description]
+    """
+    guild_id = request.args.get('guild_id')
+    categories = api_functions.get_guild_categories(guild_id)
+    guild = api_functions.get_guild(guild_id)
+    guild_data = discordData.parse_managed_guilds(guild)
+    guild_id_add = Guild(id=guild_id)
+    db.session.add(guild_id_add)
+    db.session.commit()
+    LOG.debug(f'GUILD Added: {guild_id}')
+    return redirect(url_for('mod_site.add_guild', guild_id=guild_id, user_id=session['api_token']['user_id'])) 
 
 @mod_api.route('/login')
 def login():

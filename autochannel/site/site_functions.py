@@ -17,8 +17,12 @@ def get_invite_link(guild_id):
     domain = request.url_root
     LOG.info(domain)
 
+    # url = f"https://discordapp.com/oauth2/authorize?&client_id={app.config['OAUTH2_CLIENT_ID']}"\
+    #       f"&scope=bot&permissions={permissions}&guild_id={guild_id}&response_type=code"\
+    #       f"&redirect_uri={domain}dashboard/add-guild"
+
     url = f"https://discordapp.com/oauth2/authorize?&client_id={app.config['OAUTH2_CLIENT_ID']}"\
           f"&scope=bot&permissions={permissions}&guild_id={guild_id}&response_type=code"\
-          f"&redirect_uri={domain}dashboard/add-guild"    
+          f"&redirect_uri={domain}api/add-guild"     
 
     return url

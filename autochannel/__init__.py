@@ -17,7 +17,7 @@ bcrypt = Bcrypt()
 
 def create_app(config_class=Config):
     app = Flask(__name__)
-    Bootstrap(app)
+    # Bootstrap(app)
     app.config.from_object(Config)
 
     db.init_app(app)

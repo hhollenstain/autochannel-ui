@@ -13,7 +13,8 @@ class Config:
     OAUTH2_REDIRECT_URI = 'http://localhost:5000/api/callback'
     SECRET_KEY = os.environ['OAUTH2_CLIENT_SECRET']
     #SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
-    SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/site.db'
+    #SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/site.db'
+    SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TOKEN_URL = API_BASE_URL + '/oauth2/token'
     VERSION_INFO = (0, 0, 1)
