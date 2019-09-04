@@ -1,6 +1,7 @@
 import os
 import logging
 import coloredlogs
+from flask import request
 from waitress import serve
 from autochannel.lib import utils
 from autochannel import create_app
@@ -17,6 +18,11 @@ def main():
 
     app = create_app()
 
+    @app.after_request
+    def after_request(response):
+        LOG.info(f'{request.remote_addr} {request.method} {request.scheme} {request.full_path} {response.status}')
+        return response
+
     if args.debug:
         l_level = logging.DEBUG
         app.debug = True
@@ -30,8 +36,11 @@ def main():
 
     if 'http://' in app.config['OAUTH2_REDIRECT_URI']:
         os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = 'true'
-    app.run(threaded=True)
-    #serve(app, listen='0.0.0.0:5000')
 
-# if __name__ == "__main__":
-#     main()
+    if args.debug:
+        app.run(threaded=True)
+    else:
+        serve(app, listen='0.0.0.0:5000')
+
+if __name__ == "__main__":
+    main()
