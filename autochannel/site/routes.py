@@ -24,18 +24,6 @@ def index():
     title = 'Welcome to Autochannel Bot!'
     return render_template('pages/index.html', title=title)
 
-@mod_site.route('/avatar-test')
-def avatar_test():
-    token = session['oauth2_token']
-    user = api_functions.get_user(token)
-    return avatar(user)
-
-def avatar(user):
-    if user.get('avatar'):
-        return app.config['AVATAR_BASE_URL'] + user['id'] + '/' + user['avatar'] + '.jpg'
-    else:
-        return app.config['DEFAULT_AVATAR']
-
 def token_updater(token):
     session['oauth2_token'] = token
 
@@ -76,7 +64,7 @@ def dashboard(user_id):
     Returns:
         [type] -- [description]
     """
-    guilds = api_functions.get_managed_guilds()
+    guilds = session['guilds']
     title = f"Guilds managed by {session['user']['username']}"
     return render_template(
             'pages/selectserver-boot.html', title=title,
@@ -167,30 +155,6 @@ def user():
     #user_info = get_user(token)
     return jsonify(user=api_functions.get_user(token))
 
-# def user_data_builder(user):
-    
-#     return user_data
-
-
-
-@mod_site.route('/managed-guilds')
-@login_required
-def managed_guilds():
-    """[summary]
-    
-    Returns:
-        [type] -- [description]
-    """
-    token = session['oauth2_token']
-    user = api_functions.get_user(token)
-    guilds = api_functions.get_user_guilds(token)
-    user_servers = sorted(
-        api_functions.get_user_managed_servers(user, guilds),
-        key=lambda s: s['name'].lower()
-    )
-    guild_data = discordData.parse_managed_guilds(user_servers)
-    return jsonify(managedGuilds=guild_data)
-
 @mod_site.route('/login')
 def login():
     """[summary]
@@ -198,14 +162,10 @@ def login():
     Returns:
         [type] -- [description]
     """
-    # scope = request.args.get(
-    #     'scope',
-    #     'identify email connections guilds guilds.join')
     scope = ['identify', 'email', 'guilds', 'connections', 'guilds.join']
     discord = api_functions.make_session(scope=scope)
     authorization_url, state = discord.authorization_url(
         app.config['AUTHORIZATION_BASE_URL'],
-        # access_type="offline"
     )
     session['oauth2_state'] = state
     return redirect(authorization_url) 

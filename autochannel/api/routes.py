@@ -21,7 +21,6 @@ LOG = logging.getLogger(__name__)
 
 mod_api = Blueprint('mod_api', __name__)
 
-
 @login_required
 @mod_api.route('/add-guild')
 def add_guild():
@@ -40,22 +39,13 @@ def add_guild():
     LOG.debug(f'GUILD Added: {guild_id}')
     return redirect(url_for('mod_site.add_guild', guild_id=guild_id, user_id=session['api_token']['user_id'])) 
 
-@mod_api.route('/login')
-def login():
-    # scope = request.args.get(
-    #     'scope',
-    #     'identify email connections guilds guilds.join')
-    scope = ['identify', 'email', 'guilds', 'connections', 'guilds.join']
-    discord = api_functions.make_session(scope=scope)
-    authorization_url, state = discord.authorization_url(
-        app.config['AUTHORIZATION_BASE_URL'],
-        # access_type="offline"
-    )
-    session['oauth2_state'] = state
-    return redirect(authorization_url) 
-
 @mod_api.route('/callback')
 def callback():
+    """[summary]
+    
+    Returns:
+        [type] -- [description]
+    """
     if request.values.get('error'):
         return request.values['error']
     discord = api_functions.make_session(state=session.get('oauth2_state'))
@@ -68,7 +58,7 @@ def callback():
 
     session['oauth2_token'] = discord_token
 
-# Fetch the user
+    # Fetch the user
     user = api_functions.get_user(discord_token)
     # if not user:
     #     return redirect(url_for('logout'))
@@ -83,12 +73,16 @@ def callback():
     session.permanent = True
     session['api_token'] = api_token
     session['guilds'] = api_functions.get_managed_guilds()
-    #return redirect(url_for('.me'))
     return redirect(url_for('mod_site.dashboard', user_id=session['api_token']['user_id']))
     
 @mod_api.route('/update-enabled-cat',methods=['GET','POST'])
 @login_required
 def update_enabled_cats():
+    """[summary]
+    
+    Returns:
+        [type] -- [description]
+    """
     msg=''
     channel_id = request.form.get('channel_id')
     enabled = request.form.get('enabled')

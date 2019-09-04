@@ -11,8 +11,10 @@
                 <!-- <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button> -->
-                <h3>AutoChannel</h3>
-                <strong>AC</strong>
+                <a href="{{url_for('mod_site.index')}}">
+                    <h3>AutoChannel</h3>
+                    <strong>AC</strong>
+                </a>
             </div>
  
             
@@ -28,7 +30,7 @@
             </div> -->
 
             <ul class="list-unstyled components">
-                <li class="active">
+                <li class="active mb-1">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <i class="fas fa-user"></i>
                         <h6 class="expanded-text">{{session['user']['username']}}</h6>
@@ -50,7 +52,7 @@
                 </li>
 {% if session['guilds'] is defined %}
 {% for guild in session['guilds'] %}
-                <li style="" class="select-server-hover animated bounceInUp">
+                <li style="" class="mb-1 select-server-hover animated bounceInUp">
                     <a class="select-server-hover" style="display: inline" href="/dashboard/{{session['api_token']['user_id']}}/{{session['guilds'][guild]['id']}}">
                         <img style="display:inline" width="32px" class="img-circle"
                         src="{{session['guilds'][guild]['icon']}}" /> 

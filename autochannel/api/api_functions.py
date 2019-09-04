@@ -80,8 +80,6 @@ def get_managed_guilds():
         key=lambda s: s['name'].lower()
     )
     guild_data = discordData.parse_managed_guilds(user_servers)
-    #return jsonify(managedGuilds=user_servers)
-    #return jsonify(managedGuilds=guild_data)
     return guild_data
 
 def get_guild(guild_id):

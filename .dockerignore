@@ -1,0 +1,7 @@
+.env
+.vscode
+migrations/
+docker-compose.yml
+Dockerfile
+manage.py
+*.egg-info
