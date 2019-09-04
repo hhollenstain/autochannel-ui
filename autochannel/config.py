@@ -10,7 +10,7 @@ class Config:
     GUILD_ICON_BASE = "https://cdn.discordapp.com/icons/"
     OAUTH2_CLIENT_ID = os.environ['OAUTH2_CLIENT_ID']
     OAUTH2_CLIENT_SECRET = os.environ['OAUTH2_CLIENT_SECRET']
-    OAUTH2_REDIRECT_URI = 'http://localhost:5000/api/callback'
+    OAUTH2_REDIRECT_URI = os.environ['OAUTH2_REDIRECT_URI']
     SECRET_KEY = os.environ['OAUTH2_CLIENT_SECRET']
     #SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
     #SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/site.db'
