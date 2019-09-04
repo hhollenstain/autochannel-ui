@@ -19,9 +19,10 @@ LOG = logging.getLogger(__name__)
 
 mod_site = Blueprint('mod_site', __name__)
 
-@mod_site.route('/')
+@mod_site.route('/', strict_slashes=False)
 def index():
-    return render_template('pages/index.html')
+    title = 'Welcome to Autochannel Bot!'
+    return render_template('pages/index.html', title=title)
 
 @mod_site.route('/avatar-test')
 def avatar_test():
