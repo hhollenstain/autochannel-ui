@@ -18,9 +18,13 @@ Categories for {{guild[g_info]['name']}}: {{session['user']['username'] }}
                 </div>
             </div>  
         </div>
-        <div class="row">
-            {{guild}}
-            {{user_id}}
+        <div class="row mt-2">
+            <div class="d-flex justify-content-center col-md-12 mx-auto">
+                <h4>
+                    AutoChannel bot was added:  <a class="btn btn-primary" href="/dashboard/{{user_id}}/{{guild_id}}" role="button">Dashboard</a>
+                </h4>
+
+            </div>
         </div>
 
 </div>

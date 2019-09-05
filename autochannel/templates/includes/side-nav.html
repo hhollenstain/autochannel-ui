@@ -8,9 +8,6 @@
                     <span></span>
                     <span></span>
                 </button>
-                <!-- <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button> -->
                 <a href="{{url_for('mod_site.index')}}">
                     <h3>AutoChannel</h3>
                     <strong>AC</strong>
@@ -56,8 +53,8 @@
                     <a class="select-server-hover" style="display: inline" href="/dashboard/{{session['api_token']['user_id']}}/{{session['guilds'][guild]['id']}}">
                         <img style="display:inline" width="32px" class="img-circle"
                         src="{{session['guilds'][guild]['icon']}}" /> 
-                    </a>
                         <h6 class="expanded-text">{{session['guilds'][guild]['name']}}</h6>
+                    </a>
                 </li>
 {% endfor %}
 {% endif %}
@@ -65,59 +62,3 @@
             </ul>
     
         </nav>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <div class="wrapper">
-
-    <nav id="sidebar">
-        <div class="sidebar-header">
-            <h3>Auto Channel</h3>
-            <strong>AC</strong>
-        </div>
-
-        <ul class="list-unstyled components">
-            <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <i class="fas fa-home"></i>
-                    Home
-                </a>
-                <ul class="collapse list-unstyled" id="homeSubmenu">
-                    <li>
-                        <a href="#">Home 1</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="fas fa-briefcase"></i>
-                    About
-                </a>
-            </li>
-            <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <i class="fas fa-copy"></i>
-                    Pages
-                </a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a href="#">Page 1</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-
-    </nav> -->

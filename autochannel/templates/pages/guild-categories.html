@@ -23,7 +23,7 @@ Categories for {{guild[g_info]['name']}}: {{session['user']['username'] }}
         <div>
             <table class="table discord-dark-col">
                 <thead>
-                    <tr>
+                    <tr class="text-center">
                         <!-- <th scope="col">ID</th> -->
                         <th scope="col">Name</th>
                         <th scope="col">Enabled</th>
@@ -32,12 +32,25 @@ Categories for {{guild[g_info]['name']}}: {{session['user']['username'] }}
                 </thead>
                 <tbody>
                 {% for cat in db_categories %}
-                    <tr>
+                    <div>
                         <!-- <th scope="row">{{cat}}</th> -->
-                        <td>{{discord_categories[cat|string]['name']}}</td>
-                        <td><input class="categoryEnable" type="checkbox" name="{{cat}}" id="{{cat}}" {{ 'checked' if
+                        <td class="text-center">{{discord_categories[cat|string]['name']}}</td>
+                        <td class="text-center"><input class="categoryEnable" type="checkbox" name="{{discord_categories[cat|string]['name']}}" id="{{cat}}" {{ 'checked' if
                         db_categories[cat]['enabled'] else '' }} data-toggle="toggle"  ></td>
-                        <td>AC!</td>
+                        <td>
+                            <div class="mx-auto input-group" style="width:100px;">
+                                <input name="prefix-{{cat}}" type="text"
+                                value="{{db_categories[cat]['prefix']}}"
+                                class="form-control" aria-label="Small"
+                                aria-describedby="inputGroup-sizing-sm">
+                                <div class="input-group-append">
+                                        <button
+                                        cname="{{discord_categories[cat|string]['name']}}"
+                                        type="submit" id="{{cat}}" class="btn
+                                        btn-primary prefix-apply"><i class="fas fa-check"></i></button>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -70,6 +83,7 @@ $('.categoryEnable').on("change", function() {
     var urlBackgroundProcess = "{{ url_for('mod_api.update_enabled_cats') }}";
     var id = $(this).attr('id')
     var enabled = $(this).prop('checked')
+    var name = $(this).prop('name')
     var list = new FormData()
     list.append("channel_id", id)
     list.append("enabled", enabled)
@@ -80,8 +94,36 @@ $('.categoryEnable').on("change", function() {
                     contentType: false,
                     cache: false,
                     processData: false,
+                    success:function(data) {
+                            toastr.success(name +' Enabled: ' + enabled)
+                        }    
     });
 })
 
     </script>
+
+
+<script>
+    $('.prefix-apply').on("click", function() {
+        // alert($(this).attr("id"))
+        var urlBackgroundProcess = "{{ url_for('mod_api.update_prefix_cat') }}";
+        var id = $(this).attr('id')
+        var prefix = $('input[name=prefix-'+id+']').val();
+        var cname = $(this).attr('cname')
+        var list = new FormData()
+        list.append("channel_id", id)
+        list.append("prefix", prefix)
+        $.ajax({
+                        type: "POST",
+                        url: urlBackgroundProcess,
+                        data: list,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success:function(data) {
+                            toastr.success('Updated prefix for: '+ cname + ' to ' + prefix)
+                        }                    
+        });
+    })  
+</script>
 {% endblock %}

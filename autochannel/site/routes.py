@@ -1,6 +1,7 @@
 import os
 import logging
 import requests
+import time
 from flask import Flask, Blueprint, session, request, url_for, render_template, redirect, \
  jsonify, flash, abort, Response
 from flask import current_app as app
@@ -48,9 +49,10 @@ def add_guild(user_id=None, guild_id=None):
     Returns:
         [type] -- [description]
     """
+    time.sleep(2)
     guild = api_functions.get_guild(guild_id)
     guild_data = discordData.parse_managed_guilds(guild)
-    return render_template('pages/guild-add.html', guild=guild_data, user_id=user_id)
+    return render_template('pages/guild-add.html', guild_id=guild_id, guild=guild_data, user_id=user_id)
 
 
 @mod_site.route('/dashboard/<user_id>')

@@ -17,6 +17,16 @@ def data_update_cat_enable(channel_id, enabled):
     category.enabled = enabled
     db.session.commit()
 
+def data_update_cat_prefix(channel_id, prefix):
+    """[summary]
+    
+    Arguments:
+        channel_id {[type]} -- [description]
+        prefix {[type]} -- [description]
+    """
+    category = Category.query.get(channel_id)
+    category.prefix = prefix
+    db.session.commit()
 
 def data_update_guild_categories(guild_id, categories):
     """[summary]
@@ -52,3 +62,15 @@ def data_update_guild_categories(guild_id, categories):
 
     if update_categories:
         db.session.commit()
+
+def get_guild_from_db(guild_id=None):
+    """[summary]
+    
+    Keyword Arguments:
+        guild_id {[type]} -- [description] (default: {None})
+    
+    Returns:
+        [type] -- [description]
+    """
+    guild = db.session.query(Guild).get(guild_id)
+    return guild

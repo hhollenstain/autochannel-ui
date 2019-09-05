@@ -1,6 +1,7 @@
 import os
 import logging
 import requests
+import time
 from flask import Flask, session, request, url_for, render_template, redirect, \
  jsonify, flash, abort, Response, Blueprint
 from flask import current_app as app
@@ -88,4 +89,19 @@ def update_enabled_cats():
     enabled = request.form.get('enabled')
     data_functions.data_update_cat_enable(channel_id=channel_id, enabled=enabled)
     msg = 'Updated'
+    return jsonify(data=msg)
+
+@mod_api.route('/update-prefix-cat',methods=['GET','POST'])
+@login_required
+def update_prefix_cat():
+    """[summary]
+    
+    Returns:
+        [type] -- [description]
+    """
+    msg=''
+    channel_id = request.form.get('channel_id')
+    prefix = request.form.get('prefix')
+    data_functions.data_update_cat_prefix(channel_id=channel_id, prefix=prefix)
+    msg = f'Updated prefix for channel: {channel_id} to: {prefix} '
     return jsonify(data=msg)

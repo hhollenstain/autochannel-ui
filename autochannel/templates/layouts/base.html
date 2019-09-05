@@ -22,6 +22,7 @@
         url_for('static',filename='css/sidebar.css') }}">
         <link rel="stylesheet" href="{{
         url_for('static',filename='css/animate.css') }}">
+        <link rel="stylesheet" href="{{url_for('static', filename='css/toastr.css')}}">
         
 {% endblock %}
     </head>
@@ -66,6 +67,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
         <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
         <script src="{{ url_for('static',filename='js/sidebar.js')}}"></script> 
+        <script src="{{ url_for('static',filename='js/toastr.js')}}"></script> 
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" crossorigin="anonymous"></script>
         <!-- jQuery CDN - Slim version (=without AJAX)
