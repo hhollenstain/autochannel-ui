@@ -14,14 +14,16 @@ Managed servers for {{session['user']['username'] }}
             </div>  
     </div>
     <div class="row align-items-center h-100">
-        <div class="col-md-6 mx-auto animated bounceInUp">
+        <div class="col-md-12 mx-auto animated bounceInUp">
+            <div class="mx-auto d-flex justify-content-center flex-wrap">
 
 {% for server in guilds %}
-            <a class="d-inline" href="{{url_for('mod_site.dashboard_guild', user_id=user_id,guild_id=guilds[server]['id'])}}" style="color:#FFF">
-                <img src="{{guilds[server]['icon']}}" style="width:128px; border:2px #FFF solid;"
-                class="my-3 d-inline img-circle select-server" data-toggle="tooltip" title="{{server}}" / >
-            </a>
+                <a class="d-inline" href="{{url_for('mod_site.dashboard_guild', user_id=user_id,guild_id=guilds[server]['id'])}}" style="color:#FFF">
+                    <img src="{{guilds[server]['icon']}}" style="width:128px; border:2px #FFF solid;"
+                    class="my-3 d-inline img-circle select-server" data-toggle="tooltip" title="{{server}}" / >
+                </a>
 {% endfor %} 
+            </div>
         </div>
     </div>
 </div>
