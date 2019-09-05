@@ -1,4 +1,17 @@
 <nav class="navbar navbar-expand-md navbar-light">
+    <div>
+        <button type="button" id="sidebarCollapse" class="navbar-btn
+        button-sb active float-right">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+    <div class="mx-auto d-none d-md-block">
+        <h2>
+            {% if title %}{{ title }}{% else %}AutoChannel Bot{% endif %}
+        </h2>
+    </div>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <!-- <div class="navbar-nav">
             <a href="#" class="nav-item nav-link active">Home</a>
@@ -6,7 +19,7 @@
             <a href="#" class="nav-item nav-link">Messages</a>
             <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a>
         </div> -->
-{% if title %}{{ title }}{% else %}AutoChannel Bot{% endif %}
+
         <div class="navbar-nav ml-auto">
 <!-- {% if session['user'] is defined %}
             <div class="dropdown">

@@ -265,6 +265,14 @@ a.select-server-hover:hover{
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
+@media (min-width: 600px) {
+    .navbar-expand-md .navbar-collapse {
+        display: -ms-flexbox!important;
+        display: flex!important;
+        -ms-flex-preferred-size: auto;
+        flex-basis: auto;
+    }
+}   
 
 /* @media (max-width: 768px) {
     #sidebar {
@@ -378,3 +386,4 @@ Content switch to another css
     border-bottom: 1px solid #6d7fcc;
     border-top: none;
 }
+

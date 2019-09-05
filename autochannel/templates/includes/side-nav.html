@@ -2,12 +2,6 @@
         <!-- Sidebar  -->
         <nav id="sidebar" class="active">
             <div class="sidebar-header">
-                <button type="button" id="sidebarCollapse" class="navbar-btn
-                button-sb active float-right">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
                 <a href="{{url_for('mod_site.index')}}">
                     <h3>AutoChannel</h3>
                     <strong>AC</strong>
@@ -16,15 +10,6 @@
  
             
 {% if session['user'] is defined %}
-            <!-- <div class="dropdown">
-                <button type="button" class="btn btn-primary" data-toggle="dropdown">
-                   {{session['user']['username']}}
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/dashboard">Servers</a>
-                    <a class="dropdown-item" href="/logout">Logout</a>
-                </div>
-            </div> -->
 
             <ul class="list-unstyled components">
                 <li class="active mb-1">
@@ -49,7 +34,7 @@
                 </li>
 {% if session['guilds'] is defined %}
 {% for guild in session['guilds'] %}
-                <li style="" class="mb-1 select-server-hover animated bounceInUp">
+                <li class="py-2 select-server-hover animated bounceInUp">
                     <a class="select-server-hover" style="display: inline" href="/dashboard/{{session['api_token']['user_id']}}/{{session['guilds'][guild]['id']}}">
                         <img style="display:inline" width="32px" class="img-circle"
                         src="{{session['guilds'][guild]['icon']}}" /> 

@@ -28,6 +28,9 @@
     </head>
     <body>
 
+{% block top_navbar %}
+{% include 'includes/top-nav.html' %}
+{% endblock %}
 {% block side_navbar %}
 {% include 'includes/side-nav.html' %}
 {% endblock %}
@@ -52,9 +55,6 @@
 
 {% block content %}
            <div id="content">   
-{% block top_navbar %}
-{% include 'includes/top-nav.html' %}
-{% endblock %}
                 <div class="container">
                     {# application content needs to be provided in the app_content block #}
                     {% block app_content %}{% endblock %}
