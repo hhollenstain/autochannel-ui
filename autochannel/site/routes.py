@@ -8,12 +8,14 @@ from flask import current_app as app
 from flask_bootstrap import Bootstrap
 from requests_oauthlib import OAuth2Session
 from itsdangerous import JSONWebSignatureSerializer
+"""AC Imports"""
 from autochannel import db
 from autochannel.models import Guild, Category
 from autochannel.lib.decorators import login_required, guild_check
 from autochannel.lib import discordData
 from autochannel.api import api_functions
 from autochannel.data import data_functions, data_forms
+from autochannel.site import site_functions
 
 
 LOG = logging.getLogger(__name__)
@@ -105,20 +107,22 @@ def dashboard_guild(user_id=None, guild_id=None):
     """
     #channels = api_functions.get_guild_channels(guild_id)
     discord_categories = api_functions.get_guild_categories(guild_id)
-    data_functions.data_update_guild_categories(categories=discord_categories, guild_id=guild_id)
-    db_categories = Guild.query.get(guild_id).get_categories()
-    guild = api_functions.get_guild(guild_id)
-    guild_data = discordData.parse_managed_guilds(guild)
-    title = "Guild Categories"
-    
     if discord_categories:
+        data_functions.data_update_guild_categories(categories=discord_categories, guild_id=guild_id)
+        db_categories = Guild.query.get(guild_id).get_categories()
+        guild = api_functions.get_guild(guild_id)
+        guild_data = discordData.parse_managed_guilds(guild)
+        title = "Guild Categories"
+    
         return render_template(
                 'pages/guild-categories.html', title=title, 
                 db_categories=db_categories, discord_categories=discord_categories, 
                 guild=guild_data
             )
-
-    return jsonify(error='BOT Not added to this guild or no')
+    else:
+        """Bot was removed from guild so re-invite"""
+        invite_url = site_functions.get_invite_link(guild_id)
+        return redirect(invite_url)
 
 @mod_site.route('/me')
 @login_required

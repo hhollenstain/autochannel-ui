@@ -63,6 +63,13 @@ Categories for {{guild[g_info]['name']}}: {{session['user']['username'] }}
 {% block scripts %}
 {{super()}}
 <script>
+// Adding base configs
+toastr.options.progressBar = true;
+toastr.options.showMethod = 'slideDown';
+toastr.options.hideMethod = 'slideUp';
+toastr.options.closeMethod = 'slideUp';
+</script>
+<script>
     $(document).ready(function() {
         $('.toggle').click(function() {
             var current_status = $('.status').text();
@@ -95,7 +102,7 @@ $('.categoryEnable').on("change", function() {
                     cache: false,
                     processData: false,
                     success:function(data) {
-                            toastr.success(name +' Enabled: ' + enabled)
+                            toastr['success']( name + ' : ' + enabled, 'Enabled Category')
                         }    
     });
 })
@@ -121,7 +128,7 @@ $('.categoryEnable').on("change", function() {
                         cache: false,
                         processData: false,
                         success:function(data) {
-                            toastr.success('Updated prefix for: '+ cname + ' to ' + prefix)
+                            toastr['success']( cname + ' to ' + prefix, 'Updated Prefix')
                         }                    
         });
     })  
