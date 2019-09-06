@@ -105,3 +105,20 @@ def update_prefix_cat():
     data_functions.data_update_cat_prefix(channel_id=channel_id, prefix=prefix)
     msg = f'Updated prefix for channel: {channel_id} to: {prefix} '
     return jsonify(data=msg)
+
+@mod_api.route('/update-channel_size-cat',methods=['GET','POST'])
+@login_required
+def update_channel_size_cat():
+    """[summary]
+    
+    Returns:
+        [type] -- [description]
+    """
+    msg=''
+    channel_id = request.form.get('channel_id')
+    channel_size = int(request.form.get('channel_size'))
+    if channel_size < 2 or channel_size > 20:
+        return jsonify(error='channel size can not be 1 or greater than 20'), 400
+    data_functions.data_update_cat_channel_size(channel_id=channel_id, channel_size=channel_size)
+    msg = f'Updated channel size for category: {channel_id} to: {channel_size} '
+    return jsonify(data=msg)

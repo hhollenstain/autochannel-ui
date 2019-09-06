@@ -28,6 +28,7 @@ Categories for {{guild[g_info]['name']}}: {{session['user']['username'] }}
                         <th scope="col">Name</th>
                         <th scope="col">Enabled</th>
                         <th scope="col">Prefix</th>
+                        <th scope="col">Channel Size</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,6 +49,21 @@ Categories for {{guild[g_info]['name']}}: {{session['user']['username'] }}
                                         cname="{{discord_categories[cat|string]['name']}}"
                                         type="submit" id="{{cat}}" class="btn
                                         btn-primary prefix-apply"><i class="fas fa-check"></i></button>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mx-auto input-group" style="width:100px;">
+                                <input name="channel_size-{{cat}}" type="number"
+                                value="{{db_categories[cat]['channel_size']}}"
+                                class="form-control" aria-label="Small"
+                                aria-describedby="inputGroup-sizing-sm"
+                                min="2" max="20" >
+                                <div class="input-group-append">
+                                        <button
+                                        cname="{{discord_categories[cat|string]['name']}}"
+                                        type="submit" id="{{cat}}" class="btn
+                                        btn-primary channel_size-apply"><i class="fas fa-check"></i></button>
                                 </div>
                             </div>
                         </td>
@@ -129,6 +145,33 @@ $('.categoryEnable').on("change", function() {
                         processData: false,
                         success:function(data) {
                             toastr['success']( cname + ' to ' + prefix, 'Updated Prefix')
+                        }                    
+        });
+    })  
+</script>
+
+<script>
+    $('.channel_size-apply').on("click", function() {
+        // alert($(this).attr("id"))
+        var urlBackgroundProcess = "{{ url_for('mod_api.update_channel_size_cat') }}";
+        var id = $(this).attr('id')
+        var channel_size = $('input[name=channel_size-'+id+']').val();
+        var cname = $(this).attr('cname')
+        var list = new FormData()
+        list.append("channel_id", id)
+        list.append("channel_size", channel_size)
+        $.ajax({
+                        type: "POST",
+                        url: urlBackgroundProcess,
+                        data: list,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success:function(data) {
+                            toastr['success']( cname + ' to ' + channel_size, 'Updated Channel Size')
+                        },
+                        error:function(data){
+                            toastr['error']( cname + ': must be between 2 and 20', 'Failed to update Channel size')
                         }                    
         });
     })  
