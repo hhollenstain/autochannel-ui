@@ -31,13 +31,13 @@ def add_guild():
         [type] -- [description]
     """
     guild_id = request.args.get('guild_id')
-    categories = api_functions.get_guild_categories(guild_id)
     guild = api_functions.get_guild(guild_id)
-    guild_data = discordData.parse_managed_guilds(guild)
-    guild_id_add = Guild(id=guild_id)
-    db.session.add(guild_id_add)
-    db.session.commit()
-    LOG.debug(f'GUILD Added: {guild_id}')
+    guild_exists = Guild.query.get_or_404(guild_id)
+    if not guild_exists:
+        guild_id_add = Guild(id=guild_id)
+        db.session.add(guild_id_add)
+        db.session.commit()
+        LOG.debug(f'GUILD Added: {guild_id}')
     return redirect(url_for('mod_site.add_guild', guild_id=guild_id, user_id=session['api_token']['user_id'])) 
 
 @mod_api.route('/callback')

@@ -12,6 +12,21 @@
             {% if title %}{{ title }}{% else %}AutoChannel Bot{% endif %}
         </h2>
     </div>
+
+{% if session['guilds'] is defined %}
+    <div class="d-flex" style="height: 45px;">
+{% for guild in session['guilds'] %}
+        <div style="width:50px;" class="h-100 d-flex px-2">
+            <a class="hvrcenter" style="display: inline" href="/dashboard/{{session['api_token']['user_id']}}/{{session['guilds'][guild]['id']}}">
+                <img style="display:inline" width="32px" class="img-circle"
+                src="{{session['guilds'][guild]['icon']}}" title="{{session['guilds'][guild]['name']}}" /> 
+            </a>
+        </div>
+{% endfor %}
+    </div>
+{% endif %}
+
+
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <!-- <div class="navbar-nav">
             <a href="#" class="nav-item nav-link active">Home</a>
