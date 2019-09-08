@@ -23,7 +23,7 @@ LOG = logging.getLogger(__name__)
 mod_api = Blueprint('mod_api', __name__)
 
 @login_required
-@mod_api.route('/add-guild')
+@mod_api.route('/add-guild', strict_slashes=False, methods=['GET','POST'])
 def add_guild():
     """[summary]
     
@@ -32,12 +32,13 @@ def add_guild():
     """
     guild_id = request.args.get('guild_id')
     guild = api_functions.get_guild(guild_id)
-    guild_exists = Guild.query.get_or_404(guild_id)
+    guild_exists = Guild.query.get(guild_id)
     if not guild_exists:
         guild_id_add = Guild(id=guild_id)
         db.session.add(guild_id_add)
         db.session.commit()
         LOG.debug(f'GUILD Added: {guild_id}')
+
     return redirect(url_for('mod_site.add_guild', guild_id=guild_id, user_id=session['api_token']['user_id'])) 
 
 @mod_api.route('/callback')
