@@ -31,7 +31,7 @@ Categories for {{guild[g_info]['name']}}: {{session['user']['username'] }}
                         disable the autochannel bot in this category (default Off)" scope="col">Enabled</th>
                         <th data-toggle="tooltip" title="The prefix of the
                         created channel, must be unique for channels in this
-                        category (default AC!)" scope="col">Prefix</th>
+                        category (default AC!: Example [NA] Squad)" scope="col">Prefix</th>
                         <th data-toggle="tooltip" title="Number of users that
                         can be in each channel must be between 2-20 (default 10)" scope="col">Channel Size</th>
                         <th data-toggle="tooltip" title="Number of empty
@@ -46,7 +46,7 @@ Categories for {{guild[g_info]['name']}}: {{session['user']['username'] }}
                         <td class="text-center"><input class="categoryEnable" type="checkbox" name="{{discord_categories[cat|string]['name']}}" id="{{cat}}" {{ 'checked' if
                         db_categories[cat]['enabled'] else '' }} data-toggle="toggle"  ></td>
                         <td>
-                            <div class="mx-auto input-group" style="width:130px;">
+                            <div class="mx-auto input-group" style="width:200px;">
                                 <input name="prefix-{{cat}}" type="text"
                                 value="{{db_categories[cat]['prefix']}}"
                                 class="form-control" aria-label="Small"
