@@ -5,7 +5,7 @@ class Category(db.Model):
     id = db.Column(db.BigInteger, primary_key=True)
     guild_id = db.Column(db.BigInteger, db.ForeignKey('guild.id'), nullable=False)
     enabled = db.Column(db.Boolean, default=False, nullable=False)
-    prefix = db.Column(db.String(10), unique=False, nullable=False, default='AC!')
+    prefix = db.Column(db.String(100), unique=False, nullable=False, default='AC!')
     empty_count = db.Column(db.Integer, default=1, nullable=False)
     channel_size = db.Column(db.Integer, default=10, nullable=False)
     
