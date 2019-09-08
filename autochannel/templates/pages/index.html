@@ -16,7 +16,7 @@ AutoChannel - Index
         </div>  
     </div>
     <div class="row h-100">
-        <div class="col-md-6 mx-auto">
+        <div class="col-md-12 mx-auto">
             <h4>
                 What is AutoChannel?
             </h4>
@@ -28,9 +28,11 @@ AutoChannel - Index
             <p>
                 This is done by enabling autochannel for a specified category
                 and setting unique "prefix". The prefix by default will use
-                "AC!". It is recommended that the prefix never overlap none
-                AutoChannels as the bot will think those channels also belong to
-                it. 
+                "AC!". It is recommended that the prefix never overlap none of
+                the static channels you created. If the prefix of your manually
+                created channels are the same as your static/hand crafted
+                channels, then the bot will act as they are part of its
+                automation. 
             </p>
             <p>
                 Currently AutoChannel bot will always keep 1 empty channel free.
@@ -38,27 +40,6 @@ AutoChannel - Index
                 generated channel in an enabled category
             </p>
         </div>
-        <div class="col-md-6 mx-auto">
-            <h4>
-                How to use?
-            </h4>
-            <ol>
-                <li>Login on left navigation panel</li>
-                <li>select a guild (discord lingo or "server")</li>
-                <li>Accept/add bot to your "guild"</li>
-                <li>click the dashboard link</li>
-                <li>Toggle the categories you want enabled</li>
-                <li>Updated the prefixes and click the apply Checkmark only for
-                updating prefixes</li>
-                <li>in your sever as an admin run !acupdate</li>
-            </ol>
-        </div>
-    </div>
-    <div class="row h-100">
-        <div class="col-md4 mx-auto">
-            <img width="768px" src="{{url_for('static',
-            filename='img/autochannel-instructions-2.gif')}}" >
-        </div>
-    </div>
+        {% include 'includes/instructions.html' %}
 </div>
 {% endblock %}

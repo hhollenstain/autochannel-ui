@@ -39,6 +39,17 @@ def data_update_cat_channel_size(channel_id, channel_size):
     category.channel_size = channel_size
     db.session.commit()
 
+def data_update_cat_empty_count(channel_id, empty_count):
+    """[summary]
+    
+    Arguments:
+        channel_id {[type]} -- [description]
+        channel_size {[type]} -- [description]
+    """
+    category = Category.query.get(channel_id)
+    category.empty_count = empty_count
+    db.session.commit()
+
 def data_update_guild_categories(guild_id, categories):
     """[summary]
     

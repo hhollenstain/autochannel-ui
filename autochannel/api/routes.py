@@ -122,3 +122,21 @@ def update_channel_size_cat():
     data_functions.data_update_cat_channel_size(channel_id=channel_id, channel_size=channel_size)
     msg = f'Updated channel size for category: {channel_id} to: {channel_size} '
     return jsonify(data=msg)
+
+
+@mod_api.route('/update-empty_count-cat',methods=['GET','POST'])
+@login_required
+def update_empty_count_cat():
+    """[summary]
+    
+    Returns:
+        [type] -- [description]
+    """
+    msg=''
+    channel_id = request.form.get('channel_id')
+    empty_count = int(request.form.get('empty_count'))
+    if empty_count < 1 or empty_count > 10:
+        return jsonify(error='Empty count can not be less than 1 or greater than 10'), 400
+    data_functions.data_update_cat_empty_count(channel_id=channel_id, empty_count=empty_count)
+    msg = f'Updated empty channel count for category: {channel_id} to: {empty_count} '
+    return jsonify(data=msg)
