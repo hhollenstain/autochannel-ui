@@ -386,6 +386,41 @@ Content switch to another css
     border-bottom: 1px solid #6d7fcc;
     border-top: none;
 }
+.tooltip-arrow,
+.tooltip-inner {
+    background-color: #6d7fcc;
+    border-color: #6d7fcc
+}
+
+.tooltip.bs-tooltip-auto[x-placement^=top] .arrow::before, .tooltip.bs-tooltip-top .arrow::before {
+    margin-left: -3px;
+    content: "";
+    border-width: 5px 5px 0;
+    border-top-color: #6d7fcc;
+}
+
+.tooltip.bs-tooltip-auto[x-placement^=right] .arrow::before, .tooltip.bs-tooltip-right .arrow::before {
+    margin-top: -3px;
+    content: "";
+    border-width: 5px 5px 5px 0;
+    border-right-color: #6d7fcc;
+}
+
+.tooltip.bs-tooltip-auto[x-placement^=bottom] .arrow::before, .tooltip.bs-tooltip-bottom .arrow::before {
+    margin-left: -3px;
+    content: "";
+    border-width: 0 5px 5px;
+    border-bottom-color: #6d7fcc;
+}
+
+.tooltip.bs-tooltip-auto[x-placement^=left] .arrow::before, .tooltip.bs-tooltip-left .arrow::before {
+    right: 0;
+    margin-top: -3px;
+    content: "";
+    border-width: 5px 0 5px 5px;
+    border-left-color: #6d7fcc;
+}
+
 
 .hvrcenter {
     display: inline-block;
