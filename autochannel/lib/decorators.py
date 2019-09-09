@@ -53,7 +53,7 @@ def guild_owner_check(f):
       """
 
       guild_id = kwargs.get('guild_id')
-      discord_guilds = api_functions.get_managed_guilds()
+      discord_guilds = session['guilds']
       session_guilds = [discord_guilds[k]['id'] for k in (discord_guilds.keys())]
       if str(guild_id) not in session_guilds:
         return redirect(url_for('mod_errors.ac_404'))
