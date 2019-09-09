@@ -2,7 +2,8 @@
 init - version info
 """
 import logging
-from flask import abort, redirect, request, session 
+from flask import Flask, session, request, url_for, redirect, \
+ jsonify, flash, abort, Response
 from functools import wraps
 """AC Imports"""
 from autochannel import db
@@ -55,16 +56,7 @@ def guild_owner_check(f):
       discord_guilds = api_functions.get_managed_guilds()
       session_guilds = [discord_guilds[k]['id'] for k in (discord_guilds.keys())]
       if str(guild_id) not in session_guilds:
-        LOG.info('NOT YOUR GUILD')
-        LOG.info(session['guilds'])
-        LOG.info(session_guilds)
-      else:
-        LOG.info('found your guild')
-        LOG.info(session_guilds)
-
-      # if not guild_exists:
-      #   invite_url = site_functions.get_invite_link(guild_id)
-      #   return redirect(invite_url)
+        return redirect(url_for('mod_errors.ac_404'))
 
       return f(*args, **kwargs)
     return wrapper
