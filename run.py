@@ -2,6 +2,7 @@ import os
 import logging
 import coloredlogs
 from flask import request
+from flask_debugtoolbar import DebugToolbarExtension
 from waitress import serve
 from autochannel.lib import utils
 from autochannel import create_app
@@ -15,7 +16,6 @@ def main():
                         fmt="[%(asctime)s][%(levelname)s] [%(name)s.%(funcName)s:%(lineno)d] %(message)s",
                         isatty=True)
 
-
     app = create_app()
 
     @app.after_request
@@ -26,6 +26,8 @@ def main():
     if args.debug:
         l_level = logging.DEBUG
         app.debug = True
+        toolbar = DebugToolbarExtension()
+        toolbar.init_app(app)
     else:
         l_level = logging.INFO
 
