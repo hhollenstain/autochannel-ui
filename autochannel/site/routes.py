@@ -11,7 +11,7 @@ from itsdangerous import JSONWebSignatureSerializer
 """AC Imports"""
 from autochannel import db
 from autochannel.models import Guild, Category
-from autochannel.lib.decorators import login_required, guild_check
+from autochannel.lib.decorators import login_required, guild_check, guild_owner_check
 from autochannel.lib import discordData
 from autochannel.api import api_functions
 from autochannel.data import data_functions, data_forms
@@ -93,6 +93,7 @@ def dashboard_guild_db(user_id=None, guild_id=None):
     return render_template('pages/guild-db.html', guild=guild_data)
 
 @mod_site.route('/dashboard/<user_id>/<guild_id>')
+@guild_owner_check
 @login_required
 @guild_check
 def dashboard_guild(user_id=None, guild_id=None):

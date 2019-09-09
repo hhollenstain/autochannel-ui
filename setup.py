@@ -9,6 +9,7 @@ INSTALL_REQUIREMENTS = [
     'Flask-WTF',
     'flask_bcrypt',
     'flask_bootstrap',
+    'flask-debugtoolbar',
     'Flask-Migrate',
     'flask_script',
     'flask_sqlalchemy',
