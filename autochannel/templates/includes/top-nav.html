@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-light">
-    <div class="w-100 ">
+    <div class="row w-100 flex-nowrap">
         <div>
             <button type="button" id="sidebarCollapse" class="navbar-btn
             button-sb active float-left">
@@ -13,18 +13,23 @@
             {% if title %}{{ title }}{% else %}AutoChannel Bot{% endif %}
         </h2>
     </div> -->
+        <div class="col-md-10 d-flex justify-content-center ml-50" style="height: 45px;">
     {% if session['guilds'] is defined %}
-        <div class="d-flex justify-content-center w" style="height: 45px;">
+            <div class="ml-auto d-flex">
     {% for guild in session['guilds'] %}
-            <div style="width:50px;" class="px-2">
-                <a class="hvrcenter" style="display: inline; padding-bottom: 15px;" href="/dashboard/{{session['api_token']['user_id']}}/{{session['guilds'][guild]['id']}}">
-                    <img style="display:inline" width="32px" class="img-circle"
-                    src="{{session['guilds'][guild]['icon']}}" title="{{session['guilds'][guild]['name']}}" /> 
-                </a>
-            </div>
+                <div style="width:50px;" class="px-2">
+                    <a class="hvrcenter flex-nowrap" style="display: inline; padding-bottom: 15px;" href="/dashboard/{{session['api_token']['user_id']}}/{{session['guilds'][guild]['id']}}">
+                        <img style="display:inline" width="32px" class="img-circle"
+                        src="{{session['guilds'][guild]['icon']}}" title="{{session['guilds'][guild]['name']}}" /> 
+                    </a>
+                </div>
     {% endfor %}
-        </div>
+            </div>
     {% endif %}
+            <div class="ml-auto">
+                <a class="hvrcenter" href="{{url_for('mod_site.instructions')}}">How-To</a>
+            </div>
+        </div>
     </div>
 
 
