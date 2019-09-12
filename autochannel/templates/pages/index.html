@@ -6,7 +6,7 @@ AutoChannel - Index
 
 {% block app_content %}
 <div class="container-fluid">
-    <div class="row align-items-center h-100">
+    <div class="row align-items-center h-100 pb-2">
         <div class="d-flex justify-content-center col-md-12 mx-auto" style="border-bottom:2px solid #6d7fcc"  >
             <div>
                 <h2>
@@ -16,30 +16,41 @@ AutoChannel - Index
         </div>  
     </div>
     <div class="row h-100">
-        <div class="col-md-12 mx-auto">
+        <div class="col-md-6 mx-auto">
             <h4>
                 What is AutoChannel?
             </h4>
             <p>
-                AutoChannel is desinged to make managing voice channels much
-                easier. This allows Admins/High ranking moderators to manage
-                which categories are enabled to have voice channels popualated.
+                AutoChannel is here for Admins/moderators/channel managers to
+                facilitate managing voice channels. This can help you moderate
+                small to large discord servers with over 1 million+ active users.
             </p>
             <p>
-                This is done by enabling autochannel for a specified category
-                and setting unique "prefix". The prefix by default will use
-                "AC!". It is recommended that the prefix never overlap none of
-                the static channels you created. If the prefix of your manually
-                created channels are the same as your static/hand crafted
-                channels, then the bot will act as they are part of its
-                automation. 
+                Auto-chan (AutoChannels friendly bot!) does this by watching
+                categories you specified to always have empty channels. You can
+                tell Auto-chan to watch specific categories and always make sure
+                it has 1-10 empty channels and you can set how many users can be
+                in each channel generated.  You might think but how does this
+                make my life easier? This means you will no longer have excess
+                channels and not have to scroll endless looking for groups or
+                see how many rooms are occupied.
             </p>
             <p>
-                Currently AutoChannel bot will always keep 1 empty channel free.
-                This means it will scale up and down if you join an auto
-                generated channel in an enabled category
+                Auto-chan also checks to make sure you don't have too many
+                channels in your categories. If people leave it will
+                automatically clean up empty channels.
             </p>
         </div>
-        {% include 'includes/instructions.html' %}
+        <div class="col-md-6 mx-auto">
+            <h4>Auto-chan dashboards</h4>
+            <p>
+                <img width="400px" src="{{url_for('static',
+                filename='img/autochannels-guild.png' )}}" >
+            </p>
+            <p>
+                <img width="400px" src="{{url_for('static',
+                filename='img/autochannel-custom.png' )}}" >
+            </p>
+        </div>
 </div>
 {% endblock %}

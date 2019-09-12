@@ -9,6 +9,7 @@ INSTALL_REQUIREMENTS = [
     'Flask-WTF',
     'flask_bcrypt',
     'flask_bootstrap',
+    'flask-compress',
     'flask-debugtoolbar',
     'Flask-Migrate',
     'flask_script',
@@ -33,7 +34,7 @@ TEST_REQUIREMENTS = {
 
 setup(
     name='AutoChannel-ui',
-    version='1.3.0',
+    version='1.3.1',
     description='AutoChannel Discord Bot API',
     url='https://github.com/hhollenstain/autochannel-ui',
     packages=find_packages(),

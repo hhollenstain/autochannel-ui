@@ -1,30 +1,31 @@
 <nav class="navbar navbar-expand-md navbar-light">
-    <div>
-        <button type="button" id="sidebarCollapse" class="navbar-btn
-        button-sb active float-right">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-    <div class="mx-auto d-none d-md-block">
+    <div class="w-100 ">
+        <div>
+            <button type="button" id="sidebarCollapse" class="navbar-btn
+            button-sb active float-left">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    <!-- <div class="mx-auto d-none d-md-block">
         <h2>
             {% if title %}{{ title }}{% else %}AutoChannel Bot{% endif %}
         </h2>
-    </div>
-
-{% if session['guilds'] is defined %}
-    <div class="d-flex" style="height: 45px;">
-{% for guild in session['guilds'] %}
-        <div style="width:50px;" class="h-100 d-flex px-2">
-            <a class="hvrcenter" style="display: inline" href="/dashboard/{{session['api_token']['user_id']}}/{{session['guilds'][guild]['id']}}">
-                <img style="display:inline" width="32px" class="img-circle"
-                src="{{session['guilds'][guild]['icon']}}" title="{{session['guilds'][guild]['name']}}" /> 
-            </a>
+    </div> -->
+    {% if session['guilds'] is defined %}
+        <div class="d-flex justify-content-center w" style="height: 45px;">
+    {% for guild in session['guilds'] %}
+            <div style="width:50px;" class="px-2">
+                <a class="hvrcenter" style="display: inline; padding-bottom: 15px;" href="/dashboard/{{session['api_token']['user_id']}}/{{session['guilds'][guild]['id']}}">
+                    <img style="display:inline" width="32px" class="img-circle"
+                    src="{{session['guilds'][guild]['icon']}}" title="{{session['guilds'][guild]['name']}}" /> 
+                </a>
+            </div>
+    {% endfor %}
         </div>
-{% endfor %}
+    {% endif %}
     </div>
-{% endif %}
 
 
     <div class="collapse navbar-collapse" id="navbarCollapse">
