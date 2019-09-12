@@ -11,7 +11,7 @@ Categories for {{guild[g_info]['name']}}: {{session['user']['username'] }}
 {% for g_info in guild %}
 
 <div class="container-fluid">
-        <div class="row align-items-center h-100">
+        <div class="row align-items-center">
                 <div class="d-flex justify-content-center col-md-12 mx-auto" style="border-bottom:2px solid #6d7fcc"  >
                     <div>
                         <h2>
@@ -20,79 +20,132 @@ Categories for {{guild[g_info]['name']}}: {{session['user']['username'] }}
                     </div>
                 </div>  
         </div>
+        <ul class="nav nav-tabs d-flex justify-content-center">
+                <li class="nav-tab-header"><a class="hvrcenter" data-toggle="tab" href="#autochannels">AutoChannel</a></li>
+                <li class="nav-tab-header"><a class="hvrcenter"
+                data-toggle="tab" href="#customchannel">Custom Channels</a></lic>
+        </ul>
+        <div class="tab-content">
+                <div id="autochannels" class="tab-pane fade in active show">
+                    <table class="table discord-dark-col">
+                            <thead>
+                                <tr class="text-center">
+                                    <!-- <th scope="col">ID</th> -->
+                                    <th class="discord-tooltip" data-toggle="tooltip" title="Name of Categories in
+                                    your server " scope="col">Name</th>
+                                    <th data-toggle="tooltip" title="Toggle to enable or
+                                    disable the autochannel bot in this category (default Off)" scope="col">Enabled</th>
+                                    <th data-toggle="tooltip" title="The prefix of the
+                                    created channel, must be unique for channels in this
+                                    category (default AC!: Example [NA] Squad)" scope="col">Prefix</th>
+                                    <th data-toggle="tooltip" title="Number of users that
+                                    can be in each channel must be between 2-20 (default 10)" scope="col">Channel Size</th>
+                                    <th data-toggle="tooltip" title="Number of empty
+                                    channels AutoChannel keeps in category (default 1)" scope="col">Empty Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for cat in db_categories %}
+                                <div>
+                                    <!-- <th scope="row">{{cat}}</th> -->
+                                    <td class="text-center">{{discord_categories[cat|string]['name']}}</td>
+                                    <td class="text-center"><input class="categoryEnable" type="checkbox" name="{{discord_categories[cat|string]['name']}}" id="{{cat}}" {{ 'checked' if
+                                    db_categories[cat]['enabled'] else '' }} data-toggle="toggle"  ></td>
+                                    <td>
+                                        <div class="mx-auto input-group" style="width:200px;">
+                                            <input name="prefix-{{cat}}" type="text"
+                                            value="{{db_categories[cat]['prefix']}}"
+                                            class="form-control" aria-label="Small"
+                                            aria-describedby="inputGroup-sizing-sm">
+                                            <div class="input-group-append">
+                                                    <button
+                                                    cname="{{discord_categories[cat|string]['name']}}"
+                                                    type="submit" id="{{cat}}" class="btn
+                                                    btn-primary prefix-apply"><i class="fas fa-check"></i></button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="mx-auto input-group" style="width:100px;">
+                                            <input name="channel_size-{{cat}}" type="number"
+                                            value="{{db_categories[cat]['channel_size']}}"
+                                            class="form-control" aria-label="Small"
+                                            aria-describedby="inputGroup-sizing-sm"
+                                            min="2" max="20" >
+                                            <div class="input-group-append">
+                                                    <button
+                                                    cname="{{discord_categories[cat|string]['name']}}"
+                                                    type="submit" id="{{cat}}" class="btn
+                                                    btn-primary channel_size-apply"><i class="fas fa-check"></i></button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="mx-auto input-group" style="width:100px;">
+                                            <input name="empty_count-{{cat}}" type="number"
+                                            value="{{db_categories[cat]['empty_count']}}"
+                                            class="form-control" aria-label="Small"
+                                            aria-describedby="inputGroup-sizing-sm"
+                                            min="1" max="10" >
+                                            <div class="input-group-append">
+                                                    <button
+                                                    cname="{{discord_categories[cat|string]['name']}}"
+                                                    type="submit" id="{{cat}}" class="btn
+                                                    btn-primary empty_count-apply"><i class="fas fa-check"></i></button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                </div>
+                <div id="customchannel" class="tab-pane fade">
+                    <table class="table discord-dark-col">
+                        <thead>
+                            <tr class="text-center">
+                                <!-- <th scope="col">ID</th> -->
+                                <th class="discord-tooltip" data-toggle="tooltip" title="Name of Categories in
+                                your server " scope="col">Name</th>
+                                <th data-toggle="tooltip" title="Toggle to enable or
+                                disable the custom channel creation for this category (default Off)" scope="col">Enabled</th>
+                                <th data-toggle="tooltip" title="The prefix of the
+                                created channel, must be unique for channels in this
+                                category (default VC!)" scope="col">Custom Prefix</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for cat in db_categories %}
+                            <div>
+                                <!-- <th scope="row">{{cat}}</th> -->
+                                <td class="text-center">{{discord_categories[cat|string]['name']}}</td>
+                                <td class="text-center"><input class="customCategoryEnable" type="checkbox" name="{{discord_categories[cat|string]['name']}}" id="{{cat}}" {{ 'checked' if
+                                db_categories[cat]['custom_enabled'] else '' }} data-toggle="toggle"  ></td>
+                                <td>
+                                    <div class="mx-auto input-group" style="width:200px;">
+                                        <input name="custom_prefix-{{cat}}" type="text"
+                                        value="{{db_categories[cat]['custom_prefix']}}"
+                                        class="form-control" aria-label="Small"
+                                        aria-describedby="inputGroup-sizing-sm">
+                                        <div class="input-group-append">
+                                                <button
+                                                cname="{{discord_categories[cat|string]['name']}}"
+                                                type="submit" id="{{cat}}" class="btn
+                                                btn-primary custom_prefix-apply"><i class="fas fa-check"></i></button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div id="menu2" class="tab-pane fade">
+                  <h3>Menu 2</h3>
+                  <p>Some content in menu 2.</p>
+                </div>
+              </div>
         <div>
-            <table class="table discord-dark-col">
-                <thead>
-                    <tr class="text-center">
-                        <!-- <th scope="col">ID</th> -->
-                        <th class="discord-tooltip" data-toggle="tooltip" title="Name of Categories in
-                        your server " scope="col">Name</th>
-                        <th data-toggle="tooltip" title="Toggle to enable or
-                        disable the autochannel bot in this category (default Off)" scope="col">Enabled</th>
-                        <th data-toggle="tooltip" title="The prefix of the
-                        created channel, must be unique for channels in this
-                        category (default AC!: Example [NA] Squad)" scope="col">Prefix</th>
-                        <th data-toggle="tooltip" title="Number of users that
-                        can be in each channel must be between 2-20 (default 10)" scope="col">Channel Size</th>
-                        <th data-toggle="tooltip" title="Number of empty
-                        channels AutoChannel keeps in category (default 1)" scope="col">Empty Count</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for cat in db_categories %}
-                    <div>
-                        <!-- <th scope="row">{{cat}}</th> -->
-                        <td class="text-center">{{discord_categories[cat|string]['name']}}</td>
-                        <td class="text-center"><input class="categoryEnable" type="checkbox" name="{{discord_categories[cat|string]['name']}}" id="{{cat}}" {{ 'checked' if
-                        db_categories[cat]['enabled'] else '' }} data-toggle="toggle"  ></td>
-                        <td>
-                            <div class="mx-auto input-group" style="width:200px;">
-                                <input name="prefix-{{cat}}" type="text"
-                                value="{{db_categories[cat]['prefix']}}"
-                                class="form-control" aria-label="Small"
-                                aria-describedby="inputGroup-sizing-sm">
-                                <div class="input-group-append">
-                                        <button
-                                        cname="{{discord_categories[cat|string]['name']}}"
-                                        type="submit" id="{{cat}}" class="btn
-                                        btn-primary prefix-apply"><i class="fas fa-check"></i></button>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="mx-auto input-group" style="width:100px;">
-                                <input name="channel_size-{{cat}}" type="number"
-                                value="{{db_categories[cat]['channel_size']}}"
-                                class="form-control" aria-label="Small"
-                                aria-describedby="inputGroup-sizing-sm"
-                                min="2" max="20" >
-                                <div class="input-group-append">
-                                        <button
-                                        cname="{{discord_categories[cat|string]['name']}}"
-                                        type="submit" id="{{cat}}" class="btn
-                                        btn-primary channel_size-apply"><i class="fas fa-check"></i></button>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="mx-auto input-group" style="width:100px;">
-                                <input name="empty_count-{{cat}}" type="number"
-                                value="{{db_categories[cat]['empty_count']}}"
-                                class="form-control" aria-label="Small"
-                                aria-describedby="inputGroup-sizing-sm"
-                                min="1" max="10" >
-                                <div class="input-group-append">
-                                        <button
-                                        cname="{{discord_categories[cat|string]['name']}}"
-                                        type="submit" id="{{cat}}" class="btn
-                                        btn-primary empty_count-apply"><i class="fas fa-check"></i></button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-              </table>
         </div>
     </div>
 {% endfor %}
@@ -132,6 +185,31 @@ toastr.options.closeMethod = 'slideUp';
         });
     });
 </script>
+<!-- Custom category enable -->
+<script>
+        $('.customCategoryEnable').on("change", function() {
+            // alert($(this).attr("id"))
+            var urlBackgroundProcess = "{{ url_for('mod_api.update_custom_enabled_cats') }}";
+            var id = $(this).attr('id')
+            var enabled = $(this).prop('checked')
+            var name = $(this).prop('name')
+            var list = new FormData()
+            list.append("channel_id", id)
+            list.append("enabled", enabled)
+            $.ajax({
+                            type: "POST",
+                            url: urlBackgroundProcess,
+                            data: list,
+                            contentType: false,
+                            cache: false,
+                            processData: false,
+                            success:function(data) {
+                                    toastr['success']( name + ' : ' + enabled, 'Enabled Category')
+                                }    
+            });
+        })
+        
+            </script>
 
  <!-- enabed category ajax  -->
 <script>
@@ -160,6 +238,31 @@ $('.categoryEnable').on("change", function() {
     </script>
 
 <!-- Prefix ajax  -->
+
+<script>
+        $('.custom_prefix-apply').on("click", function() {
+            // alert($(this).attr("id"))
+            var urlBackgroundProcess = "{{ url_for('mod_api.update_custom_prefix_cat') }}";
+            var id = $(this).attr('id')
+            var prefix = $('input[name=custom_prefix-'+id+']').val();
+            var cname = $(this).attr('cname')
+            var list = new FormData()
+            list.append("channel_id", id)
+            list.append("prefix", prefix)
+            $.ajax({
+                            type: "POST",
+                            url: urlBackgroundProcess,
+                            data: list,
+                            contentType: false,
+                            cache: false,
+                            processData: false,
+                            success:function(data) {
+                                toastr['success']( cname + ' to ' + prefix, 'Updated Prefix')
+                            }                    
+            });
+        })  
+</script>
+
 <script>
     $('.prefix-apply').on("click", function() {
         // alert($(this).attr("id"))

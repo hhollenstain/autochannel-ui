@@ -451,3 +451,12 @@ Content switch to another css
     left: 0;
     right: 0;
 }
+
+.nav-tab-header {
+    margin-right: 15px;
+    margin-bottom: 10px;
+}
+
+.nav-tab-header.active {
+    background-color: #6d7fcc
+}
