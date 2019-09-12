@@ -17,6 +17,18 @@ def data_update_cat_enable(channel_id, enabled):
     category.enabled = enabled
     db.session.commit()
 
+def data_update_cat_custom_enable(channel_id, enabled):
+    """[summary]
+    
+    Arguments:
+        channel_id {[type]} -- [description]
+        enabled {[type]} -- [description]
+    """
+    enabled = str2bool(enabled)
+    category = Category.query.get(channel_id)
+    category.custom_enabled = enabled
+    db.session.commit()
+
 def data_update_cat_prefix(channel_id, prefix):
     """[summary]
     
@@ -26,6 +38,17 @@ def data_update_cat_prefix(channel_id, prefix):
     """
     category = Category.query.get(channel_id)
     category.prefix = prefix
+    db.session.commit()
+
+def data_update_cat_custom_prefix(channel_id, prefix):
+    """[summary]
+    
+    Arguments:
+        channel_id {[type]} -- [description]
+        prefix {[type]} -- [description]
+    """
+    category = Category.query.get(channel_id)
+    category.custom_prefix = prefix
     db.session.commit()
 
 def data_update_cat_channel_size(channel_id, channel_size):

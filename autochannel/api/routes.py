@@ -92,6 +92,21 @@ def update_enabled_cats():
     msg = 'Updated'
     return jsonify(data=msg)
 
+@mod_api.route('/update-custom-enabled-cat',methods=['GET','POST'])
+@login_required
+def update_custom_enabled_cats():
+    """[summary]
+    
+    Returns:
+        [type] -- [description]
+    """
+    msg=''
+    channel_id = request.form.get('channel_id')
+    enabled = request.form.get('enabled')
+    data_functions.data_update_cat_custom_enable(channel_id=channel_id, enabled=enabled)
+    msg = 'Updated'
+    return jsonify(data=msg)
+
 @mod_api.route('/update-prefix-cat',methods=['GET','POST'])
 @login_required
 def update_prefix_cat():
@@ -104,6 +119,21 @@ def update_prefix_cat():
     channel_id = request.form.get('channel_id')
     prefix = request.form.get('prefix')
     data_functions.data_update_cat_prefix(channel_id=channel_id, prefix=prefix)
+    msg = f'Updated prefix for channel: {channel_id} to: {prefix} '
+    return jsonify(data=msg)
+
+@mod_api.route('/update-custom-prefix-cat',methods=['GET','POST'])
+@login_required
+def update_custom_prefix_cat():
+    """[summary]
+    
+    Returns:
+        [type] -- [description]
+    """
+    msg=''
+    channel_id = request.form.get('channel_id')
+    prefix = request.form.get('prefix')
+    data_functions.data_update_cat_custom_prefix(channel_id=channel_id, prefix=prefix)
     msg = f'Updated prefix for channel: {channel_id} to: {prefix} '
     return jsonify(data=msg)
 
