@@ -27,6 +27,11 @@ def index():
     title = 'Welcome to Autochannel Bot!'
     return render_template('pages/index.html', title=title)
 
+@mod_site.route('/instructions', strict_slashes=False)
+def instructions():
+    title = 'Instructions to use Auto-chan'
+    return render_template('pages/instructions.html', title=title)
+
 def token_updater(token):
     session['oauth2_token'] = token
 
