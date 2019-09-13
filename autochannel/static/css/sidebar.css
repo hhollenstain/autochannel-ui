@@ -60,6 +60,7 @@ span {
 .wrapper {
     display: flex;
     align-items: stretch;
+    min-height: 100vh;
 }
 
 #sidebarCollapse {
@@ -260,6 +261,7 @@ a.select-server-hover:hover{
 .container {
     width: 100%;
     padding: 20px;
+    min-height: 100vh;
 }
 
 /* ---------------------------------------------------
@@ -420,7 +422,6 @@ Content switch to another css
     border-width: 5px 0 5px 5px;
     border-left-color: #6d7fcc;
 }
-
 
 .hvrcenter {
     display: inline-block;
