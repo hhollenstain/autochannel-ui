@@ -423,7 +423,6 @@ Content switch to another css
     border-left-color: #6d7fcc;
 }
 
-
 .hvrcenter {
     display: inline-block;
     vertical-align: middle;
@@ -462,7 +461,3 @@ Content switch to another css
 .nav-tab-header.active {
     background-color: #6d7fcc
 }
-
-/* html { 
-    margin-bottom: 120px;
-} */
