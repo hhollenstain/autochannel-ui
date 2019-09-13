@@ -117,7 +117,6 @@ Categories for {{guild[g_info]['name']}}: {{session['user']['username'] }}
                         <tbody>
                         {% for cat in db_categories %}
                             <div>
-                                <!-- <th scope="row">{{cat}}</th> -->
                                 <td class="text-center">{{discord_categories[cat|string]['name']}}</td>
                                 <td class="text-center"><input class="customCategoryEnable" type="checkbox" name="{{discord_categories[cat|string]['name']}}" id="{{cat}}" {{ 'checked' if
                                 db_categories[cat]['custom_enabled'] else '' }} data-toggle="toggle"  ></td>
@@ -140,14 +139,7 @@ Categories for {{guild[g_info]['name']}}: {{session['user']['username'] }}
                         </tbody>
                     </table>
                 </div>
-                <div id="menu2" class="tab-pane fade">
-                  <h3>Menu 2</h3>
-                  <p>Some content in menu 2.</p>
-                </div>
-              </div>
-        <div>
-        </div>
-    </div>
+             </div>
 {% endfor %}
 {% endblock %}
 
