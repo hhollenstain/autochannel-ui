@@ -27,11 +27,12 @@
         
 {% endblock %}
     </head>
-    <body>
+    <body >
 
 {% block top_navbar %}
 {% include 'includes/top-nav.html' %}
 {% endblock %}
+<div class="wrapper">
 {% block side_navbar %}
 {% include 'includes/side-nav.html' %}
 {% endblock %}
@@ -55,14 +56,14 @@
             <div> -->
 
 {% block content %}
-           <div id="content">   
+           <div id="content" class="">   
                 <div class="container">
                     {# application content needs to be provided in the app_content block #}
                     {% block app_content %}{% endblock %}
                 </div>
+{% include 'includes/footer.html' %}
             </div>
 {% endblock %}
-{% include 'includes/footer.html' %}
         </div>
     </div>
 {% block scripts %}
