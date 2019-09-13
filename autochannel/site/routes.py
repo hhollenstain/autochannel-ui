@@ -46,7 +46,7 @@ def dashboard_index():
     if 'oauth2_token' in session:
         return redirect(url_for('mod_site.dashboard', user_id=session['api_token']['user_id']))
     
-    return redirect(url_for('mod_api.login')) 
+    return redirect(url_for('mod_site.login')) 
 
 @login_required
 @mod_site.route('/guild-added/<user_id>/<guild_id>')
