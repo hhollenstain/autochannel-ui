@@ -34,7 +34,7 @@ TEST_REQUIREMENTS = {
 
 setup(
     name='AutoChannel-ui',
-    version='1.3.3',
+    version='1.3.4',
     description='AutoChannel Discord Bot API',
     url='https://github.com/hhollenstain/autochannel-ui',
     packages=find_packages(),
