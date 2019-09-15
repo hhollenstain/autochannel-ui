@@ -13,7 +13,8 @@ def get_invite_link(guild_id):
     Returns:
         [string] -- [string url]
     """
-    permissions = '66321471'
+    #permissions = '66321471'
+    permissions = '85009'
     domain = request.url_root
 
     url = f"https://discordapp.com/oauth2/authorize?&client_id={app.config['OAUTH2_CLIENT_ID']}"\
