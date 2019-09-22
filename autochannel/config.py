@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 class Config:
     AC_TOKEN = os.getenv('AC_TOKEN')
@@ -11,6 +12,7 @@ class Config:
     OAUTH2_CLIENT_ID = os.environ['OAUTH2_CLIENT_ID']
     OAUTH2_CLIENT_SECRET = os.environ['OAUTH2_CLIENT_SECRET']
     OAUTH2_REDIRECT_URI = os.environ['OAUTH2_REDIRECT_URI']
+    PERMANENT_SESSION_LIFETIME =  timedelta(minutes=60)
     SECRET_KEY = os.environ['OAUTH2_CLIENT_SECRET']
     SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = False

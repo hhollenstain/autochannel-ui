@@ -36,7 +36,7 @@ def login_required(view):
     if is_authenticated():
       return view(*args, **kwargs)
     else:
-      return redirect('/api/login')
+      return redirect('/login')
   return view_wrapper
 
 

@@ -80,26 +80,9 @@ def dashboard(user_id):
             guilds=guilds, user_id=user_id
         )
 
-@mod_site.route('/dashboard/<user_id>/<guild_id>/db')
-@login_required
-@guild_check
-def dashboard_guild_db(user_id=None, guild_id=None):
-    """[summary]
-    
-    Keyword Arguments:
-        user_id {[type]} -- [description] (default: {None})
-        guild_id {[type]} -- [description] (default: {None})
-    
-    Returns:
-        [type] -- [description]
-    """
-    guild = Guild.query.filter_by(id = guild_id).first()
-    guild_data = guild.get_categories()
-    return render_template('pages/guild-db.html', guild=guild_data)
-
 @mod_site.route('/dashboard/<user_id>/<guild_id>')
-@guild_owner_check
 @login_required
+@guild_owner_check
 @guild_check
 def dashboard_guild(user_id=None, guild_id=None):
     """[summary]
