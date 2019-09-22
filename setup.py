@@ -12,10 +12,10 @@ INSTALL_REQUIREMENTS = [
     'flask-compress',
     'flask-debugtoolbar',
     'Flask-Migrate',
-    'flask_monitoringdashboard',
     'flask_script',
     'flask_sqlalchemy',
     'pip==18.0',
+    'prometheus-flask-exporter',
     'psycopg2-binary',
     'pyyaml',
     'requests',
@@ -35,7 +35,7 @@ TEST_REQUIREMENTS = {
 
 setup(
     name='AutoChannel-ui',
-    version='1.4.0',
+    version='1.5.0',
     description='AutoChannel Discord Bot API',
     url='https://github.com/hhollenstain/autochannel-ui',
     packages=find_packages(),
