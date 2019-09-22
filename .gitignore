@@ -13,6 +13,7 @@ eggs/
 *.egg-info/
 *.egg
 .env
+cfg.cfg
 
 # Installer logs
 pip-log.txt
