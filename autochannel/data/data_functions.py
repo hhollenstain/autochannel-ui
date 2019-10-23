@@ -1,6 +1,6 @@
 import logging
 from autochannel import db
-from autochannel.models import Guild, Category
+from autochannel.models import Guild, Category, Channel
 from autochannel.lib.utils import str2bool
 
 LOG = logging.getLogger(__name__)
@@ -102,6 +102,10 @@ def data_update_guild_categories(guild_id, categories):
 
     for dc in delete_cats: 
         cat_id_delete = Category.query.get(dc)
+        for chan in cat_id_delete.get_channels():
+            chan_id_delete = Channel.query.get(chan)
+            LOG.debug(f'deleting channel due to missing parent category {chan_id_delete}')
+            db.session.delete(chan_id_delete)
         db.session.delete(cat_id_delete)
         LOG.debug(f'Deleting category: {dc} that no longer exists in the Guild')
 
