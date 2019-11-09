@@ -148,8 +148,8 @@ def update_channel_size_cat():
     msg=''
     channel_id = request.form.get('channel_id')
     channel_size = int(request.form.get('channel_size'))
-    if channel_size < 2 or channel_size > 20:
-        return jsonify(error='channel size can not be 1 or greater than 20'), 400
+    if channel_size < 1 or channel_size > 99:
+        return jsonify(error='channel size can not less 0 or greater than 99'), 400
     data_functions.data_update_cat_channel_size(channel_id=channel_id, channel_size=channel_size)
     msg = f'Updated channel size for category: {channel_id} to: {channel_size} '
     return jsonify(data=msg)
