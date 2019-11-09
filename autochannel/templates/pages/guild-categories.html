@@ -39,7 +39,7 @@ Categories for {{guild[g_info]['name']}}: {{session['user']['username'] }}
                                     created channel, must be unique for channels in this
                                     category (default AC!: Example [NA] Squad)" scope="col">Prefix</th>
                                     <th data-toggle="tooltip" title="Number of users that
-                                    can be in each channel must be between 1-99 (default 10)" scope="col">Channel Size</th>
+                                    can be in each channel must be between 0-99 (default 10)" scope="col">Channel Size</th>
                                     <th data-toggle="tooltip" title="Number of empty
                                     channels AutoChannel keeps in category (default 1)" scope="col">Empty Count</th>
                                 </tr>
@@ -71,7 +71,7 @@ Categories for {{guild[g_info]['name']}}: {{session['user']['username'] }}
                                             value="{{db_categories[cat]['channel_size']}}"
                                             class="form-control" aria-label="Small"
                                             aria-describedby="inputGroup-sizing-sm"
-                                            min="1" max="99" >
+                                            min="0" max="99" >
                                             <div class="input-group-append">
                                                     <button
                                                     cname="{{discord_categories[cat|string]['name']}}"
