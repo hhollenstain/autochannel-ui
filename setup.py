@@ -14,7 +14,7 @@ INSTALL_REQUIREMENTS = [
     'Flask-Migrate',
     'flask_script',
     'flask_sqlalchemy',
-    'pip==18.0',
+    'pip==19.2',
     'prometheus-flask-exporter',
     'psycopg2-binary',
     'pyyaml',
