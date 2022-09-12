@@ -175,7 +175,7 @@ def make_session(token=None, state=None, scope=None):
     Returns:
         [type] -- [description]
     """
-    scope = ['identify', 'guilds']
+    scope = ['identify', 'email', 'guilds', 'connections', 'guilds.join']
     return OAuth2Session(
         client_id=app.config['OAUTH2_CLIENT_ID'],
         token=token,
