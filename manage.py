@@ -28,7 +28,7 @@ def main():
     logging.getLogger('urllib3').setLevel(l_level)
 
     app = create_app()
-    migrate = Migrate(app, db)
+    Migrate(app, db)
     manager = Manager(app)
     manager.add_command('db', MigrateCommand)
 

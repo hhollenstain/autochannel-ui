@@ -35,8 +35,8 @@ def instructions():
 def token_updater(token):
     session['oauth2_token'] = token
 
-@login_required
 @mod_site.route('/dashboard',  strict_slashes=False)
+@login_required
 def dashboard_index():
     """[summary]
     
@@ -48,8 +48,8 @@ def dashboard_index():
     
     return redirect(url_for('mod_site.login')) 
 
-@login_required
 @mod_site.route('/guild-added/<user_id>/<guild_id>')
+@login_required
 def add_guild(user_id=None, guild_id=None):
     """[summary]
     
