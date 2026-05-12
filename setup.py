@@ -16,7 +16,6 @@ INSTALL_REQUIREMENTS = [
     'flask_sqlalchemy',
     # 'pip==18.0',
     'itsdangerous<2.1',
-    'pip',
     'prometheus-flask-exporter',
     'psycopg2-binary',
     'pyyaml',
@@ -32,7 +31,10 @@ TEST_REQUIREMENTS = {
         'pytest',
         'pylint',
         'sure',
-        ]
+        ],
+    'dev': [
+        'ruff',
+    ],
     }
 
 setup(

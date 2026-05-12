@@ -93,9 +93,8 @@ def get_guild(guild_id):
     """
     token = session['oauth2_token']
     guilds = get_user_guilds(token)
-    return list(
-        filter( lambda g: (g['id'] in guild_id), guilds)
-    )
+    gid = str(guild_id)
+    return [g for g in guilds if g['id'] == gid]
 
 def get_user(token):
     """[summary]
@@ -133,10 +132,8 @@ def get_user_guilds(token):
         [type] -- [description]
     """
     # If it's an api_token, go fetch the discord_token
-    if token.get('api_key'):
-        user_id = token['user_id']
-    else:
-        user_id = get_user(token)['id']
+    if not token.get('api_key'):
+        get_user(token)
 
     discord = make_session(token=token)
 
