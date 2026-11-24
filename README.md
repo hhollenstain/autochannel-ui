@@ -45,6 +45,10 @@ uv run alembic -c packages/autochannel-db/alembic.ini revision --autogenerate -m
 Revision ids are the same ones Flask-Migrate created, so existing databases upgrade in
 place.
 
+`tests/test_migrations.py` fails if `models.py` and the migration history disagree. It
+needs an empty Postgres in `TEST_DATABASE_URI`; CI (`.github/workflows/ci.yml`) provides
+one.
+
 ## Merging into the autochannel-bot monorepo
 
 The repo is already a uv workspace, which makes the move mostly mechanical:
