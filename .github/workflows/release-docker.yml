@@ -1,0 +1,84 @@
+# Build and publish Docker images when a GitHub Release is published.
+#
+# Tags pushed (same digest):
+#   - ghcr.io/<owner>/<repo>:<release_tag>
+#   - ghcr.io/<owner>/<repo>:latest
+#   - docker.io/<owner>/autochannel-ui:<release_tag>   (if Docker Hub secrets are set)
+#   - docker.io/<owner>/autochannel-ui:latest
+#
+# Repository secrets (optional, for Docker Hub — matches docker-compose image names):
+#   DOCKERHUB_USERNAME
+#   DOCKERHUB_TOKEN    (access token with push to the repo’s images)
+
+name: Release — Docker image
+
+on:
+  release:
+    types: [published]
+
+concurrency:
+  group: release-docker-${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  IMAGE_SLUG: autochannel-ui
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Log in to Docker Hub
+        if: ${{ secrets.DOCKERHUB_TOKEN != '' && secrets.DOCKERHUB_USERNAME != '' }}
+        uses: docker/login-action@v3
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Compute image tags
+        id: tags
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          OWNER: ${{ github.repository_owner }}
+          REPO_LC: ghcr.io/${{ github.repository }}
+        run: |
+          set -euo pipefail
+          TAGS="${REPO_LC}:${RELEASE_TAG}"$'\n'"${REPO_LC}:latest"
+          if [ -n "${{ secrets.DOCKERHUB_TOKEN }}" ] && [ -n "${{ secrets.DOCKERHUB_USERNAME }}" ]; then
+            HUB="docker.io/${OWNER}/${{ env.IMAGE_SLUG }}"
+            TAGS="${TAGS}"$'\n'"${HUB}:${RELEASE_TAG}"$'\n'"${HUB}:latest"
+          fi
+          {
+            echo 'list<<EOF'
+            echo "${TAGS}"
+            echo 'EOF'
+          } >> "${GITHUB_OUTPUT}"
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.tags.outputs.list }}
+          labels: |
+            org.opencontainers.image.title=${{ env.IMAGE_SLUG }}
+            org.opencontainers.image.version=${{ github.event.release.tag_name }}
+            org.opencontainers.image.source=${{ github.event.repository.html_url }}
+            org.opencontainers.image.revision=${{ github.sha }}
